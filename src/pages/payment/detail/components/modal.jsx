@@ -29,12 +29,13 @@ class FileModal extends React.Component {
     handleDownload = (e) => {
         e.preventDefault();
         const {dispatch} = this.props;
-        // 定义文件名
+        // 定义下载文件文件名
         const fileName = '代发模板.xlsx';
         dispatch({
             type: 'download/download',
             payload: {},
             // 返回函数
+            // 将请求回来的参数通过callback带回来
             callback: blob => {
                 if (window.navigator.msSaveOrOpenBlob) {
                     navigator.msSaveBlob(blob, fileName);
@@ -56,11 +57,11 @@ class FileModal extends React.Component {
 
     // 上传Excel文件
     onSubmitUpload = () => {
-        console.log(this.props)
+        // console.log(this.props)
         const {fileList} = this.state;
         // formData文件上传
         const importFile = new FormData();
-        console.log(importFile)
+        // console.log(importFile)
         fileList.forEach(file => {
             importFile.append('file', file);
             // 传递其他的属性值
@@ -74,9 +75,9 @@ class FileModal extends React.Component {
         });
         const {dispatch} = this.props;
         dispatch({
-            type: 'list/upload',
-            payload: importFile,
-            callback: (response) => {
+            type: 'payment/upload',
+            payload: importFile,  // 返回给后端的参数
+            callback: (response) => { // 这里其实不需要callback
                 if (response.code===1000){
                     /*console.log('跳转支付页')
                     history.replace(`/payment/pay-page`)*/
@@ -126,7 +127,6 @@ class FileModal extends React.Component {
                         <p className="ant-upload-hint">
                             点击上传账单Excel文件
                         </p>
-                        {/*<Button type="primary" onClick={this.onSubmitUpload}>确认上传</Button>*/}
                     </Dragger>
 
                     {/*文件下载*/}

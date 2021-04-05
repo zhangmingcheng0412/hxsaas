@@ -5,8 +5,8 @@ import '../global.jsx';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from 'E:/work/project/node_modules/@umijs/runtime';
-import { renderClient } from 'E:/work/project/node_modules/@umijs/renderer-react/dist/index.js';
+import { ApplyPluginsType } from 'E:/work/project0405/project/node_modules/@umijs/runtime';
+import { renderClient } from 'E:/work/project0405/project/node_modules/@umijs/renderer-react/dist/index.js';
 import { getRoutes } from './core/routes';
 
 

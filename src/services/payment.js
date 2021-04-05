@@ -1,11 +1,17 @@
 import request from "@/utils/request";
 
 
+export async function getBatchById(params){
+    return request('/api/toll/getBatchById',{
+        method:'GET',
+        params,
+    })
+}
 
 // 确认代发更改状态
 export async function getConfirmTollBatch (params) {
     return request('/api/toll/confirmTollBatch',{
-        method:'Post',
+        method:'POST',
         data:params
     })
 }
@@ -44,7 +50,7 @@ export async function downloadTemplate(params){
 }
 
 // 导入Excel文件
-export async function upLoadList(params){
+export async function upLoadData(params){
     return request('/api/toll/importExcel',{
         method:'POST',
         data:params

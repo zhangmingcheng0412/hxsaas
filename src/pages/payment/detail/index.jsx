@@ -5,25 +5,45 @@ import styles from './index.less'
 import FileModal from "@/pages/payment/detail/components/modal";
 import TableData from "@/components/Table";
 import {connect} from "dva";
-import {getBatchData, getConfirmTollBatch} from "@/services/payment";
 import {Link} from 'umi';
 
 const Detail = (props) => {
-
+    // 请求数据 设置数据源
     const [dataSource, setDataSource] = useState([]);
-    // 设置Modal状态
+
+    // 设置Modal状态 false隐藏 true 显示
     const [isModalVisible, setIsModalVisible] = useState(false);
-    useEffect( (params) => {
-        getBatchData(params).then((data)=>{
+    useEffect((params) => {
+
+        // 页面挂载是请求数据渲染
+        // 改写
+        const {dispatch} = props
+        dispatch({
+            type: 'payment/pageBatch',
+            payload: {}, //传递给mode的请求参数
+            callback: (data) => {
+                if (data.code === 1000) {
+                    // 数据存储
+                    const newData = JSON.parse(JSON.stringify(data.data));
+                    setDataSource(newData)
+                }
+            }
+        })
+
+        /*
+
+        原始方式
+        getBatchData(params).then((data) => {
             // console.log(data)
-            if (data.code===1000){
-                const newData =JSON.parse(JSON.stringify(data.data)) ;
+            if (data.code === 1000) {
+                const newData = JSON.parse(JSON.stringify(data.data));
                 setDataSource(newData)
             }
-        }).catch(()=>{
+        }).catch(() => {
             message.error('数据请求失败')
-        })
-    },[])
+        })*/
+
+    }, [])
     // 表头字段
     const columns = [
         {
@@ -106,63 +126,49 @@ const Detail = (props) => {
                 >
                     删除
                 </a>,
-                <Link to="/payment/pay-page">
+                <a>
                     <span
                         key="editable"
                         onClick={(e) => {
                             // 取到当前id
                             const batchIdData = record.id;
-                            // 总金额
-                            const totalAmount = record.totalAmount;
+                            // debugger
                             const {dispatch} = props
                             // 派发方法
                             dispatch({
-                                type:"orderData/getData",
+                                type: "payment/pageOrder",
                                 payload: {
-                                    batchId:batchIdData,
-                                    totalMoneyNo:totalAmount,
+                                    batchId: batchIdData,
+                                },
+                                callback:(data) =>{
+                                    if (data.code===1000){
+                                        history.replace("/payment/pay-page")
+                                    }
                                 }
                             })
                         }}
                     >
                         详情
                     </span>
-                </Link>,
-                // <Link to="/payment/pay-confirm">
-                  <Link >
-                    <span
-                        key="editable"
-                        onClick={(e) => {
-                            const batchIdData = record.id;
-                            // 总金额
-                            const totalAmount = record.totalAmount;
-                            const {dispatch} = props;
-
-                            getConfirmTollBatch({batchId: batchIdData}).then((data) => {
-                                console.log(data)
-                                if (data.code!==1000){
-                                    const msg = data.msg
-                                    console.log(msg)
-                                    message.error("钱包余额不足")
-                                }else {
-                                    history.push('/payment/pay-confirm')
-                                }
-                            })
-                            // 派发方法
-                            dispatch({
-                                type:"orderData/getData",
-                                payload: {
-                                    batchId:batchIdData,
-                                    totalMoneyNo:totalAmount,
-                                    record
-                                }
-                            })
-
-                        }}
-                    >
-                        付款
-                    </span>
-                </Link>,
+                </a>,
+                <a
+                    key="editable"
+                    onClick={() => {
+                        console.log(record.id)
+                        const batchIdData = record.id;
+                        // 总金额
+                        const {dispatch} = props;
+                        dispatch({
+                            type: 'payment/confirmTollBatch',
+                            payload: {
+                                batchId: batchIdData
+                            }
+                        })
+                        debugger
+                    }}
+                >
+                    付款
+                </a>,
             ],
         },
     ];

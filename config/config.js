@@ -17,6 +17,8 @@ export default defineConfig({
     default: 'zh-CN',
     antd: true,
     // default true, when it is true, will use `navigator.language` overwrite default
+
+
     // 是否开启多语言
     baseNavigator: false,
   },

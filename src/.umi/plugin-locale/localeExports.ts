@@ -3,11 +3,11 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from 'E:/work/project/node_modules/react-intl';
+} from 'E:/work/project0405/project/node_modules/react-intl';
 import { ApplyPluginsType } from 'umi';
 import { event, LANG_CHANGE_EVENT } from './locale';
 // @ts-ignore
-import warning from 'E:/work/project/node_modules/warning/warning.js';
+import warning from 'E:/work/project0405/project/node_modules/warning/warning.js';
 
 import { plugin } from '../core/plugin';
 
@@ -34,7 +34,7 @@ export {
   defineMessages,
   injectIntl,
   useIntl,
-} from 'E:/work/project/node_modules/react-intl';
+} from 'E:/work/project0405/project/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
@@ -43,7 +43,7 @@ const useLocalStorage = true;
 export const localeInfo: {[key: string]: any} = {
   'en-US': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/exception/500/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register-result/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register/locales/en-US.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/exception/500/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register-result/locales/en-US.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register/locales/en-US.js')),
     },
     locale: 'en-US',
     antd: {
@@ -53,7 +53,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'id-ID': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/id-ID.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/id-ID.js')),
     },
     locale: 'id-ID',
     antd: {
@@ -63,7 +63,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'ja-JP': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/ja-JP.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/ja-JP.js')),
     },
     locale: 'ja-JP',
     antd: {
@@ -73,7 +73,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'pt-BR': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/pt-BR.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/exception/500/locales/pt-BR.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/pt-BR.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/exception/500/locales/pt-BR.js')),
     },
     locale: 'pt-BR',
     antd: {
@@ -83,7 +83,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-CN': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/exception/500/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register-result/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register/locales/zh-CN.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/exception/500/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register-result/locales/zh-CN.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register/locales/zh-CN.js')),
     },
     locale: 'zh-CN',
     antd: {
@@ -93,7 +93,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-TW': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/exception/500/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register-result/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project/src/pages/User/register/locales/zh-TW.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/exception/500/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register-result/locales/zh-TW.js')),...((locale) => locale.__esModule ? locale.default : locale)(require('E:/work/project0405/project/src/pages/User/register/locales/zh-TW.js')),
     },
     locale: 'zh-TW',
     antd: {

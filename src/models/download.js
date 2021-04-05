@@ -9,7 +9,7 @@ const DownloadMode = {
         *download({payload,callback},{call}){
             // 下载模板返回的结果
             const response = yield call(downloadTemplate,payload)
-            debugger
+            // debugger
             if (response instanceof Blob){
                 if (callback && typeof callback === 'function'){
                     callback(response)

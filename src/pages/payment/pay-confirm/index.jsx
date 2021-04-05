@@ -14,21 +14,18 @@ import {getBatchPayVo} from "@/services/payment";
 const PayConfirm = (props) => {
     console.log(props)
     // 取到batchId
-    const {batchId} = props
-
+    const {batchIdData} = props
 
     const [dataList,steDatalist] = useState([])
-
     useEffect(()=>{
-
-        getBatchPayVo({batchId:batchId}).then((data)=>{
-            console.log(data)
+        debugger
+        getBatchPayVo({batchId:batchIdData}).then((data)=>{
+            // console.log(data)
             const newData = [data.data];
             console.log(newData)
             steDatalist(newData)
         })
     },[])
-    // console.log(dataList)
     return (
         <div className={styles.main}>
             <Card bordered={false}>
@@ -178,9 +175,6 @@ const PayForm = () => {
 
 export default connect((state)=>{
     return{
-        state,
-        // data:state.orderData.data,
-        batchId:state.orderData.batchId
-        // data:state.batchPayVo.data,
+        batchIdData: state.payment.batchId,
     }
 })(PayConfirm)

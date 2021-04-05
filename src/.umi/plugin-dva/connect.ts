@@ -6,17 +6,19 @@ import { EffectsCommandMap, SubscriptionAPI } from 'dva';
 import { match } from 'react-router-dom';
 import { Location, LocationState, History } from 'history';
 
-export * from 'E:/work/project/src/models/download';
-export * from 'E:/work/project/src/models/global';
-export * from 'E:/work/project/src/models/login';
-export * from 'E:/work/project/src/models/orderData';
-export * from 'E:/work/project/src/models/setting';
-export * from 'E:/work/project/src/models/switchProject';
-export * from 'E:/work/project/src/models/unloadList';
-export * from 'E:/work/project/src/models/user';
-export * from 'E:/work/project/src/pages/profile/advanced/model';
-export * from 'E:/work/project/src/pages/profile/basic/model';
-export * from 'E:/work/project/src/pages/User/register/model';
+export * from 'E:/work/project0405/project/src/models/download';
+export * from 'E:/work/project0405/project/src/models/global';
+export * from 'E:/work/project0405/project/src/models/login';
+export * from 'E:/work/project0405/project/src/models/orderData';
+export * from 'E:/work/project0405/project/src/models/payment';
+export * from 'E:/work/project0405/project/src/models/setting';
+export * from 'E:/work/project0405/project/src/models/switchProject';
+export * from 'E:/work/project0405/project/src/models/test';
+export * from 'E:/work/project0405/project/src/models/unloadList';
+export * from 'E:/work/project0405/project/src/models/user';
+export * from 'E:/work/project0405/project/src/pages/profile/advanced/model';
+export * from 'E:/work/project0405/project/src/pages/profile/basic/model';
+export * from 'E:/work/project0405/project/src/pages/User/register/model';
 
 export interface Action<T = any> {
   type: T

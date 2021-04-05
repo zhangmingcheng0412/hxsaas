@@ -3,7 +3,7 @@ import {history} from "umi";
 import {message} from "antd";
 
 
-// 文件上传
+// 文件上传  已经注释掉了
 const UpLoadListMode = {
     namespace:'list',
     state:{
@@ -12,8 +12,8 @@ const UpLoadListMode = {
     effects:{
         *upload({payload,callback},{call,put}){
             const response = yield call (upLoadList,payload)
-            debugger
-            console.log(response)
+            // debugger
+            // console.log(response)
             if (callback && response.code===1000){
 
                 message.success('上传成功')

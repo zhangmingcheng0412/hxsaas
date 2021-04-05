@@ -1,53 +1,79 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, message, Space} from "antd";
-import {FormattedMessage, Link,history} from "umi";
+import {FormattedMessage, Link} from "umi";
 import styles from "@/pages/payment/pay-page/index.less";
 import TableData from "@/components/Table";
-import {getConfirmTollBatch, getOrderData} from "@/services/payment";
 import {connect} from "dva";
 
 
 const PayPage = (props) => {
-    let {batchIdData, totalMoneyNo, data, batchIdDetails} = props;
+    let {batchIdData} = props;
     const [dataSource, setDataSource] = useState([]);
-    // console.log(batchIdData)
+
+    // 设置请求回来的金额
+    const [totalMoney, setTotalMoney] = useState("")
+
     const confirmTollBatch = (batchIdData) => {
-        getConfirmTollBatch({batchId: batchIdData}).then((data) => {
-            if (data.code!==0){
-                console.log(data)
-                const msg = data.msg
-                console.log(msg)
-                message.error("钱包余额不足")
-            }else {
-                history.replace('/payment/pay-confirm')
+        const {dispatch} = props
+        dispatch({
+            type: 'payment/confirmTollBatch',
+            payload: {
+                batchId: batchIdData
             }
         })
-
     }
 
-    // 详情查询到的data 赋值渲染
-    useEffect(() => {
-        setDataSource(data)
-    }, [data])
-
-
     // 文件上传查询到的data
+    useEffect(() => {
+        const {dispatch} = props
+        dispatch({
+            type: 'payment/pageOrder',
+            payload: {
+                batchId: batchIdData //这里返回id参数是
+            },
+            callback: (data) => {
+                if (data.code === 1000) {
+                    // 请求成功，设置新的值
+                    const newData = data.data;
+                    setDataSource(newData)
+                    // setConfirmBatchId(batchIdData)
+                } else {
+                    message.error('数据请求失败')
+                }
+            }
+        })
+    }, [])
+
     useEffect(() => {
         if (batchIdData === '') {
             return
         }
 
-        getOrderData({batchId: batchIdData}).then((data) => {
-            // debugger
-            if (data.code === 1000) {
-                // 请求成功，设置新的值
-                const newData = data.data;
-                setDataSource(newData)
+        const {dispatch} = props;
+        dispatch({
+            type: 'payment/batchById',
+            payload: {
+                batchId: batchIdData //这里返回id参数是
+            },
+            callback:(data)=>{
+                if (data.code===1000){
+                    // 获取到金额
+                    const newTotalAmount =data.data.totalAmount
+                    setTotalMoney(newTotalAmount)
+                }
             }
-        }).catch(() => {
-            message.error('数据请求失败')
         })
-    }, [batchIdData])
+
+
+        /*getBatchById( {batchId:batchIdData}).then((data)=>{
+            if (data.code===1000){
+                // console.log(data.data.totalAmount)
+                const newTotalAmount =data.data.totalAmount
+                setTotalMoney(newTotalAmount)
+            }
+
+        })*/
+    }, [])
 
     // 确认代发处理函数
 
@@ -138,14 +164,20 @@ const PayPage = (props) => {
                 <div className={styles.settle}>
                     <Space>
                         <h3>支付金额合计：<span style={{color: 'red'}}>
-              {totalMoneyNo}
+              {totalMoney}
             </span>元</h3>
                         <Link to="/payment">
                             <Button type="primary" style={{backgroundColor: '#c1c1c1', border: '#c1c1c1'}}>放弃</Button>
                         </Link>
                         {/*<Link to="/payment/pay-confirm">*/}
-                            {/*提交需要给后端传个状态*/}
-                            <Button type="primary" onClick={()=>{confirmTollBatch(batchIdDetails)}}>提交</Button>
+
+                        {/*提交需要给后端传个状态*/}
+                        <Button type="primary" onClick={() => {
+                            confirmTollBatch(batchIdData)
+                            debugger
+                        }}>
+                            提交
+                        </Button>
 
                         {/*</Link>*/}
                     </Space>
@@ -159,15 +191,18 @@ const PayPage = (props) => {
 const mapStateToProps = (state) => {
     // 接收返回来的数据
     return {
+        state,
         // 传给props
-        // ID
-        batchIdData: state.list.data,
+        // ID PaymentMode存储的id
+        batchIdData: state.payment.batchId,
         // 金额
-        totalMoneyNo: state.orderData.totalMoneyNo,
+        // totalMoneyNo: state.orderData.totalMoneyNo,
         // 数据
-        data: state.orderData.data,
+        // data: state.orderData.data,
         // 详情传递的ID  用于提交更改状态
-        batchIdDetails: state.orderData.batchId
+        // batchIdDetails: state.orderData.batchId,
+
+        // lastId:state.test.lastId
     }
 }
 
